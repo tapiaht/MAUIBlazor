@@ -1,0 +1,29 @@
+﻿@page "/characters"
+@using MAUIBlazor.Services
+@using MAUIBlazor.Models
+@inject IRickyAndMortyServices service
+<h3>Personajes</h3>
+@if (_rickAndMorty==null)
+{
+	<p><em>Cargando..</em></p>
+}
+else
+{
+	@foreach(var result in _rickAndMorty.results)
+	{
+		<div>
+			<h4>@result.name</h4>
+			<img src="@result.image">
+		</div>
+	}
+}
+
+@code {
+
+	private RickAndMorty _rickAndMorty;
+	protected override async Task OnInitializedAsync()
+	{
+		_rickAndMorty = await service.Get();
+	}
+
+}
